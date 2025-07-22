@@ -126,15 +126,12 @@ function updateThemeIcon(theme) {
             audioPlayer.play().catch(console.error);
             return;
         }
-<<<<<<< HEAD
         audioPlayer.currentTime = 0;
         currentSongIndex = (currentSongIndex + 1) % songs.length;
         loadSong(currentSongIndex);
         audioPlayer.play();
-=======
         currentSongIndex = (currentSongIndex + 1) % songs.length;
         loadSong(currentSongIndex);
->>>>>>> fee9d4d1914a3184c1142f1af6016c172cb2d52c
     }
 
     function loadSong(index) {
@@ -158,17 +155,14 @@ function updateThemeIcon(theme) {
             icon: song.cover || 'thumbnails/default.jpg',
             badge: 'thumbnails/default.jpg',
             tag: 'music-player',
-<<<<<<< HEAD
             renotify: false,
             actions: [
                 { action: 'prevSong', title: 'Previous', icon: 'icons/prev.png' },
                 { action: 'nextSong', title: 'Next', icon: 'icons/next.png' }
-=======
             renotify: true,
             actions: [
                 { action: 'prev', title: 'Previous', icon: 'icons/prev.png' },
                 { action: 'next', title: 'Next', icon: 'icons/next.png' }
->>>>>>> fee9d4d1914a3184c1142f1af6016c172cb2d52c
             ],
             data: { songIndex: currentSongIndex }
         };
@@ -281,7 +275,6 @@ function updateThemeIcon(theme) {
     }
 
     function handleSongEnd() {
-<<<<<<< HEAD
     if (isRepeated) {
         audioPlayer.currentTime = 0;
         audioPlayer.play().catch(console.error);  // repeats current song
@@ -289,7 +282,6 @@ function updateThemeIcon(theme) {
         nextSong(); // plays next song if not repeatin
     }
 }
-=======
         if (isRepeated) {
             audioPlayer.currentTime = 0;
             audioPlayer.play().catch(console.error);
@@ -297,7 +289,6 @@ function updateThemeIcon(theme) {
             nextSong();
         }
     }
->>>>>>> fee9d4d1914a3184c1142f1af6016c172cb2d52c
 
     function toggleMute() {
         isMuted = !isMuted;
