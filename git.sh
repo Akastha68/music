@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # === CONFIG ===
-REPO_URL="https://github.com/Akastha68/music_player.git"
+REPO_URL="https://github.com/Akastha68/music.git"
 BRANCH="main"
 MUSIC_DIR="./music"
 
