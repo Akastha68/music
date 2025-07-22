@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Music Player</title>
+    
+    <!-- Core Meta Tags -->
+    <meta name="theme-color" content="#2980b9" id="themeColor">
+    <meta name="description" content="A beautiful glass-themed music player">
+    <meta property="og:title" content="Glass Music Player">
+    <meta property="og:description" content="Now playing your favorite tunes">
+    <meta property="og:image" content="thumbnails/default.jpg" id="ogImage">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="thumbnails/default.jpg" id="dynamicFavicon">
+    <link rel="apple-touch-icon" href="thumbnails/default.jpg">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <div class="player glass">
+            <!-- Player Header -->
+            <div class="player-header">
+                <h1>Shadow Music</h1>
+                <div class="player-controls">
+                   <button class="control-btn" id="themeToggle" title="Toggle Dark Mode">
+    																																										<i class="fas fa-moon" id="themeIcon"></i>
+																																																</button>
+                </div>
+            </div>
+       <!-- Add this near your player controls -->
+<div class="dropdown-container">
+  <button class="control-btn" id="songsDropdownBtn" title="Song List">
+    <i class="fas fa-music"></i>
+  </button>
+  <div class="songs-dropdown" id="songsDropdown">
+    <div class="dropdown-header">
+      <h4>All Songs</h4>
+      <button class="dropdown-close" id="dropdownClose">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="dropdown-search">
+      <input type="text" id="songSearch" placeholder="Search songs...">
+      <i class="fas fa-search"></i>
+    </div>
+    <div class="dropdown-list" id="songsList">
+      <!-- Songs will be populated here -->
+    </div>
+  </div>
+</div>
+
+<!-- Add overlay element -->
+<div class="dropdown-overlay" id="dropdownOverlay"></div>     
+            <!-- Now Playing Section -->
+            <div class="now-playing">
+                <div class="album-art">
+                    <img id="albumArt" src="thumbnails/default.jpg" alt="Album Art">
+                </div>
+                <div class="waveform">
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                    </div>
+                <div class="song-info">
+                    <h2 id="songTitle">No song selected</h2>
+                    <p id="songArtist">Artist</p>
+                </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="time-info">
+                    <span id="currentTime">0:00</span>
+                    <span id="duration">0:00</span>
+                </div>
+            </div>
+            
+            <!-- Main Controls -->
+            <div class="controls">
+                <button class="control-btn" id="shuffleBtn" title="Shuffle">
+                  <i class="fas fa-random"></i>
+                </button>
+                <button class="control-btn" id="prevBtn" title="Previous">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="control-btn" id="back10Btn" title="-10 seconds">
+                    <i class="fas fa-backward"></i>
+                </button>
+                <button class="control-btn play-btn" id="playBtn" title="Play/Pause">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="control-btn" id="forward10Btn" title="+10 seconds">
+                    <i class="fas fa-forward"></i>
+                </button>
+                <button class="control-btn" id="nextBtn" title="Next">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+                <button class="control-btn" id="repeatBtn" title="Repeat">
+                    <i class="fas fa-redo"></i>
+                </button>
+            </div>
+            
+            <!-- Volume Control -->
+            <div class="volume-control">
+                <button class="control-btn" id="muteBtn" title="Mute">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
+            </div>
+            
+            <!-- Playlist Section -->
+            <div class="playlist-container">
+                <div class="playlist-header">
+                    <h3>Playlist</h3>
+                    <div class="sort-options">
+                        <select id="sortSelect">
+                            <option value="title">By Title</option>
+                            <option value="artist">By Artist</option>
+                            <option value="duration">By Duration</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="playlist" id="playlist"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Audio Element -->
+    <audio id="audioPlayer"></audio>
+    
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    
+    <!-- PWA Installation Prompt -->
+    <script>
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed:', err);
+                    });
+            });
+        }
+        
+        // PWA installation prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // You can show your custom install button here
+        });
+    </script>
+    <!-- Settings Modal -->
+<div class="settings-modal glass" id="settingsModal">
+    <div class="modal-header">
+        <h3>Player Settings</h3>
+        <button class="modal-close" id="modalClose">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div class="modal-content">
+        <div class="setting-item">
+            <label for="audioQuality">Audio Quality</label>
+            <select id="audioQuality">
+                <option value="high" selected>High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+        </div>
+        <div class="setting-item">
+            <label for="crossfade">Crossfade Duration</label>
+            <input type="range" id="crossfade" min="0" max="10" value="3">
+            <span id="crossfadeValue">3 seconds</span>
+        </div>
+        <div class="setting-item">
+            <label for="darkModeToggle">Dark Mode</label>
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="modal-overlay" id="modalOverlay"></div>
+    <footer class="player-footer glass">
+  <div class="footer-content">
+    <div class="player-stats">
+      <span id="totalSongs">0 songs</span>
+      <span id="totalDuration">0:00</span>
+    </div>
+    
+    <div class="footer-controls">
+      <button class="footer-btn" id="githubBtn" title="View on GitHub">
+        <i class="fab fa-github"></i>
+      </button>
+      <button class="footer-btn" id="settingsBtn" title="Settings">
+        <i class="fas fa-cog"></i>
+      </button>
+    </div>
+    
+    <div class="player-info">
+      <span>Shadow Music &copy2025</span>
+      <span id="currentYear">v2025.07</span>
+    </div>
+<<<<<<< HEAD
+      <span class="footer-content">Made with ❤️ By Akash Patel</span>
+=======
+      <span class="modal-overlay">Made with ❤️ By Akash Patel</span>
+>>>>>>> fee9d4d1914a3184c1142f1af6016c172cb2d52c
+  </div>
+</footer>
+</body>
+</html>
