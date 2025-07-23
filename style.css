@@ -44,7 +44,7 @@ body {
     align-items: center;
     padding: 20px;
     background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    animation: gradientBG 10s ease infinite;
 }
 
 @keyframes gradientBG {
@@ -71,7 +71,7 @@ body {
 .player {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
 }
 
 .player-header {
@@ -83,8 +83,8 @@ body {
 }
 
 .player-header h1 {
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 6000;
 }
 
 .theme-toggle {
@@ -805,4 +805,8 @@ input:checked + .slider:before {
 .modal-overlay.active {
     opacity: 1;
     visibility: visible;
+}
+.hero{
+    height: 25%;
+    width:25%;
 }

@@ -1,7 +1,7 @@
 {
   "name": "Shadow Music Player",
   "short_name": "Honey Music",
-  "start_url": "/pl",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#2980b9",

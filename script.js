@@ -50,8 +50,8 @@ const themeToggle = document.getElementById('themeToggle');
 const themeIcon = document.getElementById('themeIcon');
 
 // Initialize theme
-const savedTheme = localStorage.getItem('theme') || 'light';
-document.body.classList.toggle('dark-mode', savedTheme === 'dark');
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.body.classList.toggle('light-mode', savedTheme === 'light');
 updateThemeIcon(savedTheme);
 
 // Theme toggle event listener
@@ -125,13 +125,12 @@ function updateThemeIcon(theme) {
             audioPlayer.currentTime = 0;
             audioPlayer.play().catch(console.error);
             return;
-        }
+        }else{
         audioPlayer.currentTime = 0;
         currentSongIndex = (currentSongIndex + 1) % songs.length;
         loadSong(currentSongIndex);
         audioPlayer.play();
-        currentSongIndex = (currentSongIndex + 1) % songs.length;
-        loadSong(currentSongIndex);
+    }
     }
 
     function loadSong(index) {
@@ -159,11 +158,7 @@ function updateThemeIcon(theme) {
             actions: [
                 { action: 'prevSong', title: 'Previous', icon: 'icons/prev.png' },
                 { action: 'nextSong', title: 'Next', icon: 'icons/next.png' }
-            renotify: true,
-            actions: [
-                { action: 'prev', title: 'Previous', icon: 'icons/prev.png' },
-                { action: 'next', title: 'Next', icon: 'icons/next.png' }
-            ],
+		],
             data: { songIndex: currentSongIndex }
         };
 
@@ -282,14 +277,6 @@ function updateThemeIcon(theme) {
         nextSong(); // plays next song if not repeatin
     }
 }
-        if (isRepeated) {
-            audioPlayer.currentTime = 0;
-            audioPlayer.play().catch(console.error);
-        } else {
-            nextSong();
-        }
-    }
-
     function toggleMute() {
         isMuted = !isMuted;
         if (isMuted) {
@@ -328,7 +315,7 @@ let originalOrder = []; // To store the original playlist order
 
 // Initialize Player (update your existing initPlayer function)
 function initPlayer() {
-    fetch('player.php')
+    fetch('https://73raxkkpc.localto.net/player.php')
         .then(response => response.json())
         .then(data => {
             songs = data;
@@ -461,7 +448,7 @@ function loadSong(index) {
   currentSongIndex = index;
   const song = songs[index];
   
-  audioPlayer.src = `music/${song.file}`;
+  audioPlayer.src = `https://73raxkkpc.localto.net/music/${song.file}`;
   if (isPlaying) audioPlayer.play().catch(console.error);
   
   updateSongInfo();
@@ -478,7 +465,7 @@ function highlightInDropdown() {
 
 // Call this after loading songs
 function initPlayer() {
-  fetch('player.php')
+  fetch('https://73raxkkpc.localto.net/player.php')
     .then(response => response.json())
     .then(data => {
       songs = data;
@@ -530,7 +517,7 @@ function updateFooterStats() {
 }
 
 function initPlayer() {
-  fetch('player.php')
+  fetch('https://73raxkkpc.localto.net/player.php')
     .then(response => response.json())
     .then(data => {
       if (!Array.isArray(data) || data.length === 0) {
