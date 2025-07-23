@@ -137,7 +137,7 @@ function updateThemeIcon(theme) {
         currentSongIndex = index;
         const song = songs[index];
         
-        audioPlayer.src = `music/${song.file}`;
+        audioPlayer.src = `https://73raxkkpc.localto.net/music/${song.file}`;
         if (isPlaying) audioPlayer.play().catch(console.error);
         
         updateSongInfo();
