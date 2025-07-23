@@ -136,7 +136,6 @@ function updateThemeIcon(theme) {
     function loadSong(index) {
         currentSongIndex = index;
         const song = songs[index];
-        
         audioPlayer.src = `${baseUrl}music/${song.file}`;
         if (isPlaying) audioPlayer.play().catch(console.error);
         
