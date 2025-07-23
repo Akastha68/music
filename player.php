@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json');
-
+// Allow requests from any origin (Not secure for public APIs!)
+header("Access-Control-Allow-Origin: *");
 $db = new SQLite3('songs.db');
 
 // Fetch all songs

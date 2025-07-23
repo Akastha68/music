@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const playlistEl = document.getElementById('playlist');
     const volumeSlider = document.getElementById('volumeSlider');
     const muteBtn = document.getElementById('muteBtn');
-
+    const baseUrl = "";
     // Player State
     let songs = [];
     let currentSongIndex = 0;
@@ -137,7 +137,7 @@ function updateThemeIcon(theme) {
         currentSongIndex = index;
         const song = songs[index];
         
-        audioPlayer.src = `music/${song.file}`;
+        audioPlayer.src = `${baseUrl}music/${song.file}`;
         if (isPlaying) audioPlayer.play().catch(console.error);
         
         updateSongInfo();
@@ -315,7 +315,7 @@ let originalOrder = []; // To store the original playlist order
 
 // Initialize Player (update your existing initPlayer function)
 function initPlayer() {
-    fetch('https://73raxkkpc.localto.net/player.php')
+    fetch(`${baseUrl}player.php`)
         .then(response => response.json())
         .then(data => {
             songs = data;
@@ -448,7 +448,7 @@ function loadSong(index) {
   currentSongIndex = index;
   const song = songs[index];
   
-  audioPlayer.src = `https://73raxkkpc.localto.net/music/${song.file}`;
+  audioPlayer.src = `${baseUrl}music/${song.file}`;
   if (isPlaying) audioPlayer.play().catch(console.error);
   
   updateSongInfo();
@@ -465,7 +465,7 @@ function highlightInDropdown() {
 
 // Call this after loading songs
 function initPlayer() {
-  fetch('https://73raxkkpc.localto.net/player.php')
+  fetch(`${baseUrl}player.php`)
     .then(response => response.json())
     .then(data => {
       songs = data;
@@ -517,7 +517,7 @@ function updateFooterStats() {
 }
 
 function initPlayer() {
-  fetch('https://73raxkkpc.localto.net/player.php')
+  fetch(`${baseUrl}player.php`)
     .then(response => response.json())
     .then(data => {
       if (!Array.isArray(data) || data.length === 0) {
