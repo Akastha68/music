@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const playlistEl = document.getElementById('playlist');
     const volumeSlider = document.getElementById('volumeSlider');
     const muteBtn = document.getElementById('muteBtn');
-    const baseUrl = "https://euro-methods-differences-absolute.trycloudflare.com";
+    const baseUrl = "";
     // Player State
     let songs = [];
     let currentSongIndex = 0;
